@@ -32,7 +32,7 @@ npx ndjson-chain-verify ./fixtures/good.ndjson
 
 ### Windows note
 
-If `ndjson-chain-verify` is “not recognized”, run it via:
+If `ndjson-chain-verify` is “not recognized” when run directly, use:
 - `npx ndjson-chain-verify <file.ndjson>`
 - or `npm exec -- ndjson-chain-verify <file.ndjson>`
 
