@@ -1,3 +1,0 @@
-{"type":"run","run_id":"run_test_1"}
-{"type":"gap","seg_id_start":0,"seg_id_end":1,"reason_code":1,"reason_text":"missing_segment (fixture)","h":"185cc94a524ff514843172f5c5da37d9cd07f7be814fbdc363d35a8696743a43","ch":"07163d20d2f56689d2c8177db3700d57afe003b8cb12908f37190a7cde03413d"}
-{"type":"seal","algo":"sha256","root_ch":"1c4f04cfa66cbb29a98f4ab3f2e0da70a7dfab3a99403ea7de2d0d80374f9912","terminal_ch":"07163d20d2f56689d2c8177db3700d57afe003b8cb12908f37190a7cde03413d"}
