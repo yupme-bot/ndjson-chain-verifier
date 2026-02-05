@@ -37,7 +37,7 @@ jobs:
       - name: CLI smoke (quiet)
         shell: bash
         run: |
-          out="$(npx ndjson-chain-verify --quiet fixtures/good.ndjson)"
+          out="$(node bin/ndjson-chain-verify.js --quiet fixtures/good.ndjson)"
           if [ "$out" != "PASS" ]; then
             echo "Expected PASS, got: $out"
             exit 1
