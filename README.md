@@ -15,6 +15,10 @@ It intentionally does **not** include:
 - ❌ dashboards / analytics
 - ❌ “repair”, auto-fixing, or interpretation
 
+- ### Algorithm policy (SHA-256 only)
+This verifier only accepts `algo=sha256` for audit-chain verification. We intentionally do not support algorithm agility in v0.1 to avoid downgrade/algorithm-confusion risks. Any other `algo` value fails verification (`FAIL: UNSUPPORTED_ALGO`).
+
+
 If you have an export, this tool answers one question:
 > “Do these bytes match the stated audit-chain rules?”
 
