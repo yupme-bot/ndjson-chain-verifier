@@ -1,0 +1,51 @@
+{
+  "name": "ndjson-chain-verifier",
+  "version": "0.1.0",
+  "description": "Offline verifier for deterministic NDJSON audit-chain exports.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yupme-bot/ndjson-chain-verifier.git"
+  },
+  "homepage": "https://github.com/yupme-bot/ndjson-chain-verifier#readme",
+  "bugs": {
+    "url": "https://github.com/yupme-bot/ndjson-chain-verifier/issues"
+  },
+  "bin": {
+    "ndjson-chain-verify": "./bin/ndjson-chain-verify.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "node ./scripts/lint_noop.mjs",
+    "verify": "node ./scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "scripts/",
+    "fixtures/",
+    "README.md",
+    "SPEC_VERIFY.md",
+    "WHAT_PASS_MEANS.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "ndjson",
+    "audit",
+    "audit-log",
+    "verifier",
+    "verification",
+    "integrity",
+    "sha256",
+    "evidence",
+    "hash-chain",
+    "cryptographic",
+    "forensics",
+    "compliance"
+  ]
+}

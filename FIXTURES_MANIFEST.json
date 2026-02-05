@@ -1,0 +1,64 @@
+[
+  {
+    "filename": "fixtures/good.ndjson",
+    "expected": {
+      "status": "PASS"
+    },
+    "description": "good.ndjson"
+  },
+  {
+    "filename": "fixtures/gap_missing_segment.ndjson",
+    "expected": {
+      "status": "PASS"
+    },
+    "description": "gap_missing_segment.ndjson"
+  },
+  {
+    "filename": "fixtures/gap_hash_mismatch.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "GAP_HASH_MISMATCH"
+    },
+    "description": "gap_hash_mismatch.ndjson"
+  },
+  {
+    "filename": "fixtures/bad_json.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "BAD_JSON"
+    },
+    "description": "bad_json.ndjson"
+  },
+  {
+    "filename": "fixtures/tampered_line.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "CHAIN_MISMATCH"
+    },
+    "description": "tampered_line.ndjson"
+  },
+  {
+    "filename": "fixtures/reordered_lines.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "CHAIN_MISMATCH"
+    },
+    "description": "reordered_lines.ndjson"
+  },
+  {
+    "filename": "fixtures/truncated_line.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "TRUNCATED_LAST_LINE"
+    },
+    "description": "truncated_line.ndjson"
+  },
+  {
+    "filename": "fixtures/missing_seal.ndjson",
+    "expected": {
+      "status": "FAIL",
+      "reason_code": "MISSING_SEAL"
+    },
+    "description": "missing_seal.ndjson"
+  }
+]

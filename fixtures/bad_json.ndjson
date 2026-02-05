@@ -1,0 +1,3 @@
+{"type":"run","run_id":"run_fixture_bad_json"}
+{
+{"type":"seal","algo":"sha256","root_ch":"9f20a5f81af4753751a2e618b076ff4a6f707177ee474c7117081982974825df","terminal_ch":"92db6d09d17eee4c67ef659ce578c8848500e8fc94a60c5c452b2febba6f9f72"}

@@ -1,0 +1,4 @@
+{"type":"run","run_id":"run_fixture_reordered"}
+{"type":"gap","seg_id_start":1,"seg_id_end":2,"reason_code":1,"h":"877325cd2a2399dc9a6e11228bb9def3d2c6d74c0e7e56f6efadeda34dbd22e8","ch":"bd031d4e2f8da6e0a6648ddfb8fd044da8ce42b5efa723fc8dbedd4a68bbe7ef","reason_text":"missing_segment"}
+{"type":"gap","seg_id_start":0,"seg_id_end":1,"reason_code":1,"h":"185cc94a524ff514843172f5c5da37d9cd07f7be814fbdc363d35a8696743a43","ch":"15611e40a734a8bd7863c56edf3efa927f36c5c2125ae46a83f446fdc9119948","reason_text":"missing_segment"}
+{"type":"seal","algo":"sha256","root_ch":"21d731e4a3648fdfee4017d572b968fb6cff75bf65a4013432920e6b3a2ef35e","terminal_ch":"bd031d4e2f8da6e0a6648ddfb8fd044da8ce42b5efa723fc8dbedd4a68bbe7ef"}

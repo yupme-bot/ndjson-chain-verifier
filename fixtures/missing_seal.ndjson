@@ -1,0 +1,2 @@
+{"type":"run","run_id":"run_fixture_missing_seal"}
+{"type":"gap","seg_id_start":0,"seg_id_end":1,"reason_code":1,"h":"185cc94a524ff514843172f5c5da37d9cd07f7be814fbdc363d35a8696743a43","ch":"7c6b6820c9ff950494f08706e75a721001302cf81d2210c080f135e51aed4ff8","reason_text":"missing_segment"}

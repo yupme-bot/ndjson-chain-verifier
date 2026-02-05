@@ -1,0 +1,3 @@
+{"type":"run","run_id":"run_fixture_gap_missing"}
+{"type":"gap","seg_id_start":0,"seg_id_end":1,"reason_code":1,"h":"185cc94a524ff514843172f5c5da37d9cd07f7be814fbdc363d35a8696743a43","ch":"859972cbe4ed837da8c5d480f4285e0fa22267bc56fac5f53d23c8f71bde9f50","reason_text":"missing_segment"}
+{"type":"seal","algo":"sha256","root_ch":"f3443bda4c529260e64bb37a0cba1e16718adacaa08f215adb8b51bc13e0eca7","terminal_ch":"859972cbe4ed837da8c5d480f4285e0fa22267bc56fac5f53d23c8f71bde9f50"}

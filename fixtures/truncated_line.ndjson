@@ -1,0 +1,4 @@
+{"type":"run","run_id":"run_fixture_truncated"}
+{"type":"gap","seg_id_start":0,"seg_id_end":1,"reason_code":1,"h":"185cc94a524ff514843172f5c5da37d9cd07f7be814fbdc363d35a8696743a43","ch":"1ae673e25d685b19cbea57d4da67c119ded4d3c3438c28c3beb984aa817ea98e","reason_text":"missing_segment"}
+{"type":"seal","algo":"sha256","root_ch":"c3eb1a9eba20b1412723fb33ec21e2cd1dcbc9ac9d9a80e63a1be112a6016624","terminal_ch":"1ae673e25d685b19cbea57d4da67c119ded4d3c3438c28c3beb984aa817ea98e"}
+{"type":"trace","note":"incomplete"
