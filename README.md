@@ -158,4 +158,4 @@ A browser-based visualization demo is planned.
 
 ## License
 
-Apache-2.0. See `LICENSE` and `NOTICE`.
+FSL-1.1-Apache-2.0. See `LICENSE` and `NOTICE`.
