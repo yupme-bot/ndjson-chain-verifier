@@ -2,7 +2,6 @@
 
 This file explains what **PASS / AUTHENTIC ✅** means in Guardian Verifier.
 
-It is written so you can safely quote it in a README, an email, or a dispute thread.
 
 ---
 
