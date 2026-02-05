@@ -145,6 +145,8 @@ This repository demonstrates that verification model directly.
 
 ---
 
+A browser-based visualization demo is planned.
+
 ## Specifications
 
 - `SPEC_VERIFY.md` — normative verification rules
