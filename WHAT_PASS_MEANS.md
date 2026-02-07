@@ -1,116 +1,155 @@
 # WHAT PASS MEANS
 
-This file explains what **PASS / AUTHENTIC ✅** means in Guardian Verifier.
+This document explains what **OK**, **PARTIAL**, and **INVALID** mean when reported by Guardian Verifier.
 
+Guardian Verifier answers one narrow question only:
+
+“Do these bytes obey the audit-chain rules they claim to follow?”
+
+Nothing more.
 
 ---
 
-## When the verifier prints `AUTHENTIC ✅`
+## When the verifier reports `OK`
 
-It means the verifier was able to **fully validate integrity and format** for the bytes you provided.
+`OK` means the verifier was able to **fully validate structure and integrity** for the bytes you provided.
 
-The verifier answers one narrow question:
+It means the artifact is:
+- internally consistent
+- complete
+- untampered
 
-> **Do these bytes obey the audit-chain rules they claim to follow?**
+### For an NDJSON export (.ndjson)
 
-### For an NDJSON export (`.ndjson`)
-
-`AUTHENTIC ✅` means all of the following are true:
+`OK` means all of the following are true:
 
 1) **The file is valid NDJSON in the expected structure**
    - The first non-empty line is a `type: "run"` record with a non-empty `run_id`.
    - Each subsequent non-empty line is valid JSON.
 
-2) **Only allowed record types appear (per the verifier's schema profile)**
-   - Unknown record types fail verification in strict mode.
+2) **Only allowed record types appear**
+   - All records conform to the verifier’s schema profile.
+   - Unknown or disallowed record types fail verification.
 
 3) **Hashing rules are satisfied**
-   - The export uses the supported algorithm (SHA-256).
-   - Each `segment` and `gap` record's hash fields match what the verifier recomputes from the record contents.
-   - The rolling chain hash advances correctly record-by-record.
+   - The supported algorithm (SHA-256) is used.
+   - Each `segment` and `gap` record’s hash fields match what the verifier recomputes from record contents.
+   - The rolling chain hash advances correctly for every record.
 
 4) **Ordering rules are satisfied**
-   - Records appear in the expected order (e.g., segments/gaps before the seal; no segments/gaps after traces; etc.).
-   - A `seal` record is present and matches the terminal chain hash.
+   - Records appear in the required order.
+   - No records appear where they are not permitted.
+   - A terminal `seal` record is present and matches the final chain hash.
 
-If a single byte changes (including whitespace inside a JSON line), the file should fail.
-
-### For a ZIP evidence pack (`.zip`)
-
-`AUTHENTIC ✅` means all of the following are true:
-
-1) **The ZIP container can be opened and is within safety limits**
-   - Entry count, total uncompressed size, and compression ratio are bounded.
-
-2) **At least one `.ndjson` entry was found and verified**
-   - Every `.ndjson` entry inside the ZIP is streamed and verified using the same NDJSON rules above.
-
-3) **No strict-mode ZIP-level checks failed**
-   - If the caller provides an `expectedFiles` list, missing entries fail verification.
+If a single byte changes — including whitespace inside a JSON line — verification should fail.
 
 ---
 
-## When the verifier prints `NOT AUTHENTIC ❌`
+### For a ZIP evidence pack (.zip)
 
-It means at least one integrity or format rule failed.
+`OK` means all of the following are true:
 
-The verifier will report one or more issues (error codes + details) so the failure can be explained precisely.
+1) **The ZIP container is safe to process**
+   - Entry count, total uncompressed size, and compression ratio are within bounds.
 
----
+2) **At least one NDJSON entry was found and verified**
+   - Every `.ndjson` entry inside the ZIP is streamed and verified using the same NDJSON rules.
 
-## When the verifier prints `PARTIAL ⚠️`
-
-This status is only possible when verification is run with an explicit "allow partial" option (library usage).
-
-`PARTIAL ⚠️` means:
-- the verifier was able to verify the chain up to a certain point (it reports `last_ch`),
-- but the file ended unexpectedly (e.g., missing seal, or a truncated final line).
-
-In other words: **verified up to `last_ch`, but not a complete export.**
+3) **All strict ZIP-level expectations are met**
+   - If an expected file list is provided, missing entries cause failure.
 
 ---
 
-## What `AUTHENTIC ✅` does NOT mean
+## When the verifier reports `PARTIAL`
 
-A PASS is strong, but it is intentionally limited.
+`PARTIAL` is only possible when verification is explicitly run in **allow-partial** mode (library usage or advanced CLI usage).
 
-`AUTHENTIC ✅` does **not** claim that:
+`PARTIAL` means:
+- the verifier successfully validated the chain **up to a specific point**
+- integrity is proven **up to that point**
+- the artifact is **incomplete**
 
-- the underlying events are "true" or "correct" in the real world
-- the producer captured *everything* (except that missing persisted data must be explicit when represented)
-- the producer is honest, or that intent/motivation was good
-- the system was secure at runtime (it is not remote attestation)
-- the verifier binary itself is trusted (you should run a trusted build)
+Common reasons include:
+- missing terminal seal
+- truncated final line
+- explicit GAP records indicating known missing data
 
-The verifier validates **structure + integrity of the bytes you have**, not the real-world meaning of those bytes.
+In this case, the verifier reports:
+- the last verified chain hash (`last_ch`)
+- the extent of what was successfully verified
 
----
+Interpretation:
 
-## Exit codes and machine-readable output
-
-The CLI supports stable scripting:
-
-- `AUTHENTIC ✅` → exit code **0**
-- `PARTIAL ⚠️` → exit code **1**
-- `NOT AUTHENTIC ❌` → exit code **2**
-- fatal error (e.g., crash/unhandled exception) → exit code **3**
-
-You can also write a JSON report:
-
-```bash
-node ./bin/guardian-verify.js <file.ndjson|pack.zip> --json out.json
-```
+“Everything up to `last_ch` is intact and untampered.  
+Nothing beyond that point is claimed.”
 
 ---
 
-## Recommended "low-dependency" verification
+## When the verifier reports `INVALID`
 
-If you want to minimize supply-chain / `node_modules` risk during verification:
+`INVALID` means at least one integrity or format rule was violated.
 
-- Prefer the self-contained dist build:
+Examples include:
+- hash mismatches
+- record reordering
+- missing required records in strict mode
+- corrupted or malformed JSON
+- unsupported algorithms
 
-```bash
-node ./dist/guardian-verify.cjs <file.ndjson|pack.zip>
-```
+The verifier reports error codes and details so failures can be explained precisely.
 
-This is designed to work without `npm install`.
+---
+
+## What `OK` does NOT mean
+
+A successful verification is strong — but intentionally limited.
+
+`OK` does **not** claim that:
+- the underlying events are true or correct
+- the producer captured all possible events
+- the producer is honest or trustworthy
+- the system was secure at runtime
+- the artifact proves authorship or timestamps
+- the verifier binary itself is trusted
+
+Guardian Verifier validates **structure and integrity of the bytes you have**, not their real-world meaning.
+
+---
+
+## Exit codes and automation
+
+The CLI provides stable exit codes for scripting:
+
+- `OK` → exit code 0
+- `PARTIAL` → exit code 1
+- `INVALID` → exit code 2
+- fatal error (crash or unhandled exception) → exit code 3
+
+Machine-readable JSON output can also be generated:
+
+    node ./bin/guardian-verify.js <file.ndjson|pack.zip> --json out.json
+
+---
+
+## Recommended low-dependency verification
+
+To minimize supply-chain risk during verification:
+
+- Prefer the self-contained distribution build:
+
+    node ./dist/guardian-verify.cjs <file.ndjson|pack.zip>
+
+This build is designed to run without `npm install` and without resolving external dependencies.
+
+---
+
+## Summary
+
+- `OK` means complete and internally consistent
+- `PARTIAL` means verifiable up to a known boundary
+- `INVALID` means integrity rules were violated
+
+Guardian Verifier is strict by design.
+
+Silence is not success.  
+Explicit results are.
